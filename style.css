@@ -1,0 +1,8 @@
+body{
+    background-color: #f4f4f6;
+    display: grid;
+}
+.card{
+    background-color: #f4f4f6;
+    display: flex;
+}

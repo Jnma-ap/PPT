@@ -1,0 +1,103 @@
+// Opcion del usuario
+// const jugador = prompt("Ingrasa tu elecion ( Piedra 🪨 | Papel 📋| Tijeras ✂️ ) tienes un ❤️").toLowerCase()
+// opcionDePc();
+
+// Puntos del usuario y PC
+// let puntosUsuario = 0;
+// let puntosPC = 0;
+
+// const imagenes = [
+//     {
+//         name: "Piedra",
+//         url: "assets/Piedra.PNG" 
+//     },
+//     {
+//         name: "Papel",
+//         url: "assets/Papel.PNG" 
+//     },
+//     {
+//         name: "Tijeras",
+//         url: "assets/Tijeras.PNG" 
+//     }
+// ];
+
+
+// let botonesOpciones = document.querySelectorAll(".opcion");
+
+// botonesOpciones.forEach(img => {
+//     img.addEventListener("click", partida);
+// });
+
+// // Gana, Pierde o Empata
+// function partida(usr) {
+//     // Opciones del PC
+
+//     // piedra -> 0
+//     // papel  -> 1
+//     // tijera -> 2
+
+//     let eleccionPC = Math.floor(Math.random() * 3);
+//     let jugador = usr.currentTarget.id;
+
+//     // Elecion del PC
+
+//     // PC = 🪨
+//     if (eleccionPC == 0) {
+//         eleccionPC = "piedra";
+//         // PC = 📋
+//     } else if (eleccionPC == 1) {
+//         eleccionPC = "papel";
+//         // PC = ✂️
+//     } else if (eleccionPC == 2) {
+//         eleccionPC = "tijera";
+//     }
+
+//     // piedra > tijera
+//     // tijera > papel
+//     // papel  > piedra
+//     // empate
+
+//     if (
+//         (jugador === "piedra" && eleccionPC === "tijera") ||
+//         (jugador === "tijera" && eleccionPC === "papel") ||
+//         (jugador === "papel" && eleccionPC === "piedra")
+//     ) {
+//         ganaUsuario();
+//     } else if (
+//         (eleccionPC === "piedra" && jugador === "tijera") ||
+//         (eleccionPC === "tijera" && jugador === "papel") ||
+//         (eleccionPC === "papel" && jugador === "piedra")
+//     ) {
+//         ganaPC();
+//     } else {
+//         empate();
+//     }   
+// }
+
+// function ganaUsuario() {
+//     puntosUsuario++;
+//     document.write(`¡Ganaste un punto! 🔥 Puntos: TU: ${puntosUsuario} / PC: ${puntosPC}`);
+// }
+// function ganaPC() {
+//     puntosPC++;
+//     document.write(`¡La computadora ganó un punto! 😭 Puntos: TU: ${puntosUsuario} / PC: ${puntosPC}`);
+// }
+// function empate() {
+//     document.write("¡Empate! 😱");
+// }
+
+// Vidas
+// let vidas = 1;
+// while (vidas != 0) {
+//     if (empate() == true) {
+//         document.write(`Tienes: ${vidas} ❤️`);
+//         break;
+//     } else if (ganaUsuario() == true) {
+//         document.write(`Tienes: ${vidas} ❤️`);
+//         break;
+//     } else if (ganaPC() == true) {
+//         vidas--;
+//         document.write(`Tienes: ${vidas} ❤️`);
+//         break;
+//     }
+// }

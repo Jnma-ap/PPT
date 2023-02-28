@@ -1,119 +1,157 @@
-const jugador = prompt("Ingrasa tu elecion ( Piedra 🪨 | Papel 📋| Tijeras ✂️ ) tienes un ❤️").toLowerCase()
-opcionDePc();
+// Hola soy juan manuel tengo 14 años en este momento y me gusta 📖🏊🎮🧑‍💻
 
-function opcionDePc() {
-    var aleatorio = Aleatorio();
+// Puntos U / PC
+let puntosUsuario = 0;
+let puntosPC = 0;
 
-    if (aleatorio == 0) {
-        pc = "piedra";
-    } else if (aleatorio == 1) {
-        pc = "papel";
-    } else if (aleatorio == 2) {
-        pc = "tijeras";
+// Elementos
+const msjBatalla = document.getElementById('msj-batalla');
+const seccionBatalla = document.getElementById('campo-batalla');
+const imgAtaqueJugador = document.getElementById('img-ataque-jugador');
+const imgAtaquePc = document.getElementById('img-ataque-pc');
+// Botones
+const btnPiedra = document.getElementById('btn-piedra');
+const btnPapel = document.getElementById('btn-papel');
+const btnTijeras = document.getElementById('btn-tijeras');
+
+const img = [
+    {
+        name: "Piedra",
+        url: "assets/Piedra.PNG" 
+    },
+    {
+        name: "Papel",
+        url: "assets/Papel.PNG" 
+    },
+    {
+        name: "Tijera",
+        url: "assets/Tijeras.PNG" 
     }
+];
 
-}
+
+function iniciar(){
+    seccionBatalla.style.display = 'none';
+};
+
+// Piedra
+btnPiedra.addEventListener('click', function(){
+    eleccionUsuario = "Piedra";
+    opcionPC();
+});
+
+// Papel
+btnPapel.addEventListener('click', function(){
+    eleccionUsuario = "Papel";
+    opcionPC();
+});
+
+// Tijeras
+btnTijeras.addEventListener('click', function(){
+    eleccionUsuario = "Tijera";
+    opcionPC();
+})
 
 
+// Opciones del PC
+function opcionPC(){
+    // piedra -> 0
+    // papel  -> 1
+    // tijera -> 2
+    let aleaorio = Math.floor(Math.random() * 3);
+    
+    // Elecion del PC
+    if(aleaorio == 0){
+        eleccionPC = "Piedra";
+    }else if(aleaorio == 1){
+        eleccionPC = "Papel";
+    }else if(aleaorio == 2){
+        eleccionPC = "Tijera"
+    };
+
+    batalla();
+
+};
+
+
+// Gana, Pierde o Empata
 function batalla() {
-    if ((jugador || segundaOP) == pc) {
-        document.write("Empate 🫤");
-    }
+
+    // piedra > tijera
+    // tijera > papel
+    // papel  > piedra
+    // empate
+
+    if(eleccionUsuario == eleccionPC){
+        empate();
+    }else if(
+        (eleccionUsuario === "Piedra" && eleccionPC === "Tijera") ||
+        (eleccionUsuario === "Tijera" && eleccionPC === "Papel") ||
+        (eleccionUsuario === "Papel" && eleccionPC === "Piedra")
+    ){
+        ganaUsuario();
+    }else if(
+        (eleccionPC === "Piedra" && eleccionUsuario === "Tijera") ||
+        (eleccionPC === "Tijera" && eleccionUsuario === "Papel") ||
+        (eleccionPC === "Papel" && eleccionUsuario === "Piedra")
+    ){
+        ganaPC();
+    };
+
+    addimg();
+
+    // Ganador del juego
+    if (puntosPC === 5 || puntosUsuario === 5) {
     
-    else if ((jugador || segundaOP) == "piedra" && pc == "tijeras") {
-        document.write('<div class="card"><img src="assets/Piedra.png"/></div>');
-        document.write("Eleción de la computadora");
-        document.write('<div class="card"><img src="assets/Tijeras.png"/></div>');
-        document.write("<h2>Ganaste 😎!</h2>");
-    } 
+        if (puntosUsuario >= 5) {
+            msjBatalla.innerHTML = (`¡Ganastes el juego 🔥! - 🫥: ${puntosUsuario} | 🤖: ${puntosPC} (Por favor reiniciar pag)`/*, reiniciarJuego()*/);
+        } 
 
-    else if ((jugador || segundaOP) == "papel" && pc == "piedra") {
-        document.write('<div class="card"><img src="assets/Papel.png"/></div>');
-        document.write("Eleción de la computadora");
-        document.write('<div class="card"><img src="assets/Piedra.png"/></div>');
-        document.write("<h2>Ganaste 😎!</h2>");   
-    } 
-
-    else if ((jugador || segundaOP) == "tijeras" && pc == "papel") {
-        document.write('<div class="card"><img src="assets/Tijeras.png"/></div>');
-        document.write("Eleción de la computadora");
-        document.write('<div class="card"><img src="assets/Papel.png"/></div>');
-        document.write("<h2>Ganaste 😎!</h2>");
-    } 
-
-    else if ((jugador || segundaOP) == "piedra" && pc == "papel") {
-        document.write('<div class="card"><img src="assets/Piedra.png"/></div>');
-        document.write("Eleción de la computadora");
-        document.write('<div class="card"><img src="assets/Papel.png"/></div>');
-        document.write(" ¡La computadora ganó el juego! 😭");
-    } 
-
-    else if ((jugador || segundaOP) == "papel" && pc == "tijeras") {
-        document.write('<div class="card"><img src="assets/Papel.png"/></div>'); 
-        document.write("Eleción de la computadora");
-        document.write('<div class="card"><img src="assets/Tijeras.png"/></div>');
-        document.write(" ¡La computadora ganó el juego! 😭");
-    } 
-
-    else if ((jugador || segundaOP) == "papel" && pc == "piedra") {
-        document.write('<div class="card"><img src="assets/Papel.png"/></div>');
-        document.write("Eleción de la computadora");
-        document.write('<div class="card"><img src="assets/Piedra.png"/></div>');
-        document.write(" ¡La computadora ganó el juego! 😭");
-    } 
-    else {
-        document.write("Escribe bien");
+        if (puntosPC >= 5){
+            msjBatalla.innerHTML = (`¡🤖 Gano el juego! - 🫥: ${puntosUsuario} | 🤖: ${puntosPC} (Por favor reiniciar pag)` /*, reiniciarJuego()*/);
+        }
+        
     }
 }
 
-batalla();
-
-// Vidas
-
-let vidas = 1;
-while (vidas != 0) {
-    if ((jugador || segundaOP) == pc) {
-        document.write(`<h3> Tienes: ${vidas} ❤️</h3>`)
-        let segundaOP = prompt("Empate 🔥! Juega de nuevo ( Piedra 🪨 | Papel 📋 | Tijeras ✂️ )").toLowerCase()
-        opcionDePc();
-        console.log(segundaOP)
-        break
-    } else if( (jugador || segundaOP) == "piedra" && pc == "tijeras"){
-        document.write(`<h3> Tienes: ${vidas} ❤️</h3>`)
-        let segundaOP = prompt("Ganaste 🔥! Juega de nuevo ( Piedra 🪨 | Papel 📋 | Tijeras ✂️ )").toLowerCase()
-        opcionDePc();
-        console.log(segundaOP)
-        break
-    } else if( (jugador || segundaOP) == "papel" && pc == "piedra"){
-        document.write(`<h3> Tienes: ${vidas} ❤️</h3>`)
-        let segundaOP = prompt("Ganaste 🔥! Juega de nuevo ( Piedra 🪨 | Papel 📋 | Tijeras ✂️ )").toLowerCase()
-        opcionDePc();
-        console.log(segundaOP)
-        break
-    } else if( (jugador || segundaOP) == "tijeras" && pc == "papel"){
-        document.write(`<h3> Tienes: ${vidas} ❤️</h3>`)
-        let segundaOP = prompt("Ganaste 🔥! Juega de nuevo ( Piedra 🪨 | Papel 📋 | Tijeras ✂️ )").toLowerCase()
-        opcionDePc();
-        console.log(segundaOP)
-        break
-    } else if( (jugador || segundaOP) == "piedra" && pc == "papel" ){
-        vidas--
-        document.write(`<h2> Tienes: ${vidas} ❤️</h2>`)
-        break
-    } else if( (jugador || segundaOP) == "papel" && pc == "tijeras" ){
-        vidas--
-        document.write(`<h2> Tienes: ${vidas} ❤️</h2>`)
-        break
-    } else if( (jugador || segundaOP) == "papel" && pc == "piedra" ){
-        vidas--
-        document.write(`<h2> Tienes: ${vidas} ❤️</h2>`)
-        break
-    }
+// Empate
+function empate() {
+    msjBatalla.innerHTML = (`¡Empate! 😱 Puntos: 🫥: ${puntosUsuario}  🤖: ${puntosPC}`);
 }
+// Gana Usuario + 1 Punto
+function ganaUsuario() {
+    puntosUsuario++;
+    msjBatalla.innerHTML = (`¡Ganaste un punto! 🔥 Puntos: 🫥: ${puntosUsuario} | 🤖: ${puntosPC}`);
+}
+// Gana PC + 1 Punto
+function ganaPC() {
+    puntosPC++;
+    msjBatalla.innerHTML = (`¡La computadora ganó un punto! 😭 Puntos: 🫥: ${puntosUsuario} | 🤖: ${puntosPC}`);
+}
+
+// Agregar img
+function addimg(){
+    for(i = 0; i < img.length; i += 1){
+
+        if(eleccionUsuario == img[i].name){
+            let imgJugador = img[i].url;
+            let inserta = `<img class="img-batalla" src=${imgJugador} alt="">`;
+            imgAtaqueJugador.innerHTML = inserta;
+        };
+        
+        if(eleccionPC == img[i].name){
+            let imgPc = img[i].url;
+            let inserta = `<img class="img-batalla" src=${imgPc} alt="">`;
+            imgAtaquePc.innerHTML = inserta;
+        };
+    };
     
-// Aleatorio
+    seccionBatalla.style.display = 'flex';
+    
+};
 
-function Aleatorio() {
-    let opcion = Math.floor(Math.random() * 3);
-    return opcion;
-}
+// function reiniciarJuego() {
+//     reiniciar.classList.add("disabled");
+//     puntosUsuario = 0;
+//     puntosPC = 0;
+// }
